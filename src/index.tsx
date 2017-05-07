@@ -1,10 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-// import App from './App';
+const {Provider} = require('react-redux');
+
+import Root from './Root';
+import state from './store';
 import './index.css';
-import TrainingPage from "./training/TrainingPage";
 
 ReactDOM.render(
-  <TrainingPage />,
-  document.getElementById('root') as HTMLElement
+    <Provider store={state}>
+        <Root/>
+    </Provider>,
+    document.getElementById('root') as HTMLElement
 );
