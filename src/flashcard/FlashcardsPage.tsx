@@ -6,19 +6,17 @@ import FlashcardsItem from './components/FlashcardsItem';
 class FlashcardsPage extends React.Component<any, any> {
 
     renderFlashcards = () => {
-
         const {flashcards} = this.props;
         let template;
         if (flashcards) {
             template = flashcards.map((item: any, index: number) => {
-                return <FlashcardsItem key={index} flashcard={item}/>
-            })
+                return <FlashcardsItem key={index} flashcard={item}/>;
+            });
         } else {
-            <p>К сожадению колод нет :(</p>
+            template = <p>К сожадению колод нет :(</p>;
         }
         return template;
-
-    };
+    }
 
     render() {
         return (
@@ -28,8 +26,8 @@ class FlashcardsPage extends React.Component<any, any> {
                 </div>
             </div>
         );
-    }
-}
+    };
+};
 
 const mapStateToProps = (state: any) => {
     return {

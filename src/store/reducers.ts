@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux';
+const {combineReducers} = require('redux');
 
 import flashcards from '../flashcard/reducer';
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
         flashcards
 });
 
-export default reducers;
+export default rootReducer;
