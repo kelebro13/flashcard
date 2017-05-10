@@ -35,3 +35,14 @@
 .jumbotron {
   height: 300px;
 }
+
+.training-card {
+  margin-bottom: 21px;
+  background-color: #4e5d6c;
+}
+
+.training-card-content {
+  min-height: 350px;
+  height: 100%;
+  padding: 0 4vw;
+}

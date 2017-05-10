@@ -1,6 +1,6 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
-const {Navbar, Jumbotron, ProgressBar} = require('react-bootstrap');
+const {ProgressBar} = require('react-bootstrap');
 
 class TrainingPage extends React.Component<any, any> {
     constructor(props: any){
@@ -12,7 +12,7 @@ class TrainingPage extends React.Component<any, any> {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const {cards} = this.props.flashcard;
         const newCards = cards.sort(() => {
             return .5 - Math.random();
@@ -36,42 +36,69 @@ class TrainingPage extends React.Component<any, any> {
         });
     }
 
+    getProgress = () => {
+        const {cards, cardIndex} = this.state;
+        const countCards = cards.length;
+        // todo посмотреть вычисления в js
+        const percent = 100 / countCards;
+        const visualCardIndex = cardIndex + 1;
+        const now = percent * visualCardIndex;
+        return {
+            now,
+            label: `${visualCardIndex}/${countCards}`
+        }
+    }
+    // todo обработка ошибок - если например нету карточек
     render() {
         const {cards, isAnswer, cardIndex} = this.state;
         const cardQuestion = cards[cardIndex].question;
         const cardAnswer = cards[cardIndex].answer;
+        const isFirstCard = cardIndex === 0;
+        const isLastCard = cardIndex === (cards.length - 1);
         return (
             <div className="App">
-                <Navbar>
-                    <Navbar.Header>
-                        <Navbar.Brand>
-                            React Simple Flashcard App
-                        </Navbar.Brand>
-                    </Navbar.Header>
-                </Navbar>
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-12">
                             <div className="page-header">
-                                <h1>
-                                    Тренировка
-                                </h1>
+                                <h1>Тренировка</h1>
                             </div>
                         </div>
                     </div>
-                    <ProgressBar bsStyle="success" now={40} label="40/100"/>
-                    <Jumbotron>
-                        <p style={{color: '#5cb85c'}}>{isAnswer ? 'Ответ' : 'Вопрос'}</p>
-                        <p>{isAnswer ? cardAnswer : cardQuestion}</p>
-                    </Jumbotron>
+                    <ProgressBar bsStyle="success" now={this.getProgress().now} label={this.getProgress().label}/>
+
+                    <div className=" training-card">
+                    <div className="row training-card-content text-left">
+                        <div className="col-xs-12">
+                            <h5 style={{color: '#5cb85c'}}>Вопрос</h5>
+                        </div>
+                        <div className="col-xs-12">
+                            <p>{cardQuestion}</p>
+                        </div>
+                        <div className="col-xs-12">
+                            <h5 style={{color: '#5cb85c'}}>{isAnswer ? 'Ответ' : ''}</h5>
+                        </div>
+                        <div className="col-xs-12">
+                            <p className=" text-left">{isAnswer ? cardAnswer : ''}</p>
+                        </div>
+                    </div>
+                    </div>
                     <div className="row">
                         <div className="col-sm-12">
                             <div className="btn-group btn-group-justified">
-                                <a className="btn btn-success" onClick={this.handleChangeQuestion.bind(this, false)}>
+                                <a
+                                    className="btn btn-success"
+                                    onClick={this.handleChangeQuestion.bind(this, false)}
+                                    disabled={isFirstCard}
+                                >
                                     <i className="glyphicon glyphicon-menu-left"/>
                                 </a>
-                                <a href="#" className="btn btn-success" disabled={isAnswer} onClick={this.handleClickAnswer}>Ответ</a>
-                                <a href="#" className="btn btn-success" onClick={this.handleChangeQuestion.bind(this, true)}>
+                                <a className="btn btn-success" disabled={isAnswer} onClick={this.handleClickAnswer}>Ответ</a>
+                                <a
+                                    className="btn btn-success"
+                                    onClick={this.handleChangeQuestion.bind(this, true)}
+                                    disabled={isLastCard}
+                                >
                                     <i className="glyphicon glyphicon-menu-right"/>
                                 </a>
                             </div>

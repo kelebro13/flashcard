@@ -12,6 +12,13 @@ const initState = [
         cards: jsCore,
     },
     {
+        id: 1,
+        title: 'JavaScript Core',
+        decsription: '',
+        imageUrl: 'https://s3-us-west-2.amazonaws.com/svgporn.com/logos/javascript.svg',
+        cards: [],
+    },
+    {
         id: 2,
         title: 'JavaScript Core',
         decsription: '',
@@ -27,13 +34,6 @@ const initState = [
     },
     {
         id: 4,
-        title: 'JavaScript Core',
-        decsription: '',
-        imageUrl: 'https://s3-us-west-2.amazonaws.com/svgporn.com/logos/javascript.svg',
-        cards: [],
-    },
-    {
-        id: 5,
         title: 'JavaScript Core',
         decsription: '',
         imageUrl: 'https://s3-us-west-2.amazonaws.com/svgporn.com/logos/javascript.svg',
