@@ -1,6 +1,35 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
 const {ProgressBar} = require('react-bootstrap');
+const Markdown = require('react-markdown');
+
+/**
+ * Для тестов
+ * http://www.reactexamples.com/react-markdown-editor/
+ * @returns {string}
+ */
+function getDefaultSource() {
+    return [
+            '# markdown-editor', '',
+            'Super simple markdown editor/previewer, based on ',
+            '[react-markdown](https://github.com/rexxars/react-markdown)',
+            '',
+            '**Note: HTML input is disabled in this editor, for now**',
+            '',
+
+            '## Flow', '',
+            '* When source in the editor is changed:',
+            '  * Callback is triggered',
+            '  * Updates state on app component',
+            '  * App component sets new source on preview component (react-markdown)',
+            '  * Changes are reflected!',
+            '* As a bonus, a debounced method stores the editor value to localStorage (if available)',
+            '',
+
+            '## License', '',
+            '* MIT-licensed'
+        ].join('\n');
+}
 
 class TrainingPage extends React.Component<any, any> {
     constructor(props: any){
@@ -58,31 +87,23 @@ class TrainingPage extends React.Component<any, any> {
         return (
             <div className="App">
                 <div className="container">
-                    <div className="row">
-                        <div className="col-sm-12">
-                            <div className="page-header">
-                                <h1>Тренировка</h1>
-                            </div>
-                        </div>
-                    </div>
+                    <br/>
                     <ProgressBar bsStyle="success" now={this.getProgress().now} label={this.getProgress().label}/>
 
                     <div className=" training-card">
                     <div className="row training-card-content text-left">
                         <div className="col-xs-12">
-                            <h5 style={{color: '#5cb85c'}}>Вопрос</h5>
+                            <h3>{cardQuestion}</h3>
                         </div>
                         <div className="col-xs-12">
-                            <p>{cardQuestion}</p>
-                        </div>
-                        <div className="col-xs-12">
-                            <h5 style={{color: '#5cb85c'}}>{isAnswer ? 'Ответ' : ''}</h5>
-                        </div>
-                        <div className="col-xs-12">
-                            <p className=" text-left">{isAnswer ? cardAnswer : ''}</p>
+                            <Markdown
+                                source={isAnswer ? cardAnswer : getDefaultSource()}
+                                escapeHtml
+                            />
                         </div>
                     </div>
                     </div>
+                    <hr />
                     <div className="row">
                         <div className="col-sm-12">
                             <div className="btn-group btn-group-justified">
