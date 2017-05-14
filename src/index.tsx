@@ -4,6 +4,7 @@ const {Provider} = require('react-redux');
 
 import Root from './Root';
 import state from './store';
+import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 
 ReactDOM.render(

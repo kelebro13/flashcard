@@ -1,6 +1,5 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
-const {ProgressBar} = require('react-bootstrap');
 const Markdown = require('react-markdown');
 
 /**
@@ -65,18 +64,6 @@ class TrainingPage extends React.Component<any, any> {
         });
     }
 
-    getProgress = () => {
-        const {cards, cardIndex} = this.state;
-        const countCards = cards.length;
-        // todo посмотреть вычисления в js
-        const percent = 100 / countCards;
-        const visualCardIndex = cardIndex + 1;
-        const now = percent * visualCardIndex;
-        return {
-            now,
-            label: `${visualCardIndex}/${countCards}`
-        }
-    }
     // todo обработка ошибок - если например нету карточек
     render() {
         const {cards, isAnswer, cardIndex} = this.state;
@@ -84,16 +71,15 @@ class TrainingPage extends React.Component<any, any> {
         const cardAnswer = cards[cardIndex].answer;
         const isFirstCard = cardIndex === 0;
         const isLastCard = cardIndex === (cards.length - 1);
+        const cardIndexForText = cardIndex + 1;
         return (
             <div className="App">
                 <div className="container">
                     <br/>
-                    <ProgressBar bsStyle="success" now={this.getProgress().now} label={this.getProgress().label}/>
-
                     <div className=" training-card">
                     <div className="row training-card-content text-left">
                         <div className="col-xs-12">
-                            <h3>{cardQuestion}</h3>
+                            <h1>{cardQuestion}</h1>
                         </div>
                         <div className="col-xs-12">
                             <Markdown
@@ -105,6 +91,9 @@ class TrainingPage extends React.Component<any, any> {
                     </div>
                     <hr />
                     <div className="row">
+                        <div className="col-xs-12 text-left">
+                            <p>{`Вопрос ${cardIndexForText} из ${cards.length}`}</p>
+                        </div>
                         <div className="col-sm-12">
                             <div className="btn-group btn-group-justified">
                                 <a

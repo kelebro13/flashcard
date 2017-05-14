@@ -1,24 +1,38 @@
 import * as React from 'react';
 
 const {Link} = require('react-router');
-const {Thumbnail, Button} = require('react-bootstrap');
+import { Button, Icon, Item } from 'semantic-ui-react'
 
 class FlashcardsItem extends React.Component<any, any> {
 
     render () {
         const {flashcard} = this.props;
         return (
-            <div className="col-md-3 col-sm-6 col-xs-12">
-                <Thumbnail src={flashcard.imageUrl} alt="242x200">
-                    <h3>{flashcard.title}</h3>
-                    <p>{flashcard.description}</p>
-                    <p>
-                        <Link className="btn btn-success" to={`/training/${flashcard.id}`}>Тренировка</Link>
-                        <span>{' '}</span>
-                        <Button as={Link} to={`/flashcard/${flashcard.id}`}bsStyle="default">Карточки</Button>
-                    </p>
-                </Thumbnail>
-            </div>
+            <Item>
+                <Item.Image size='tiny' src={flashcard.imageUrl} />
+
+                <Item.Content>
+                    <Item.Header as='a'>{flashcard.title}</Item.Header>
+                    <Item.Meta>
+                        <span className='cinema'>JavaScript</span>
+                    </Item.Meta>
+                    <Item.Description>{flashcard.description}</Item.Description>
+                    <Item.Extra>
+                        <Button color='red' floated='right'>
+                            Удалить
+                            <Icon name='right remove' />
+                        </Button>
+                        <Button as={Link} to={`/flashcard/edit/${flashcard.id}`} floated='right'>
+                            Изменить
+                            <Icon name='right write' />
+                        </Button>
+                        <Button color='green' size='big' floated='right'>
+                            Тренировка
+                            <Icon name='right checkmark' />
+                        </Button>
+                    </Item.Extra>
+                </Item.Content>
+            </Item>
         );
     }
 }

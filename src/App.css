@@ -1,57 +1,14 @@
-html {
-  height: 100%;
-}
-body {
-  height:100%;
-}
-
-#root {
-  height: 100%;
-}
-.App {
-  height: 100%;
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.page-wrapper {
-  height: 90%;
-  min-height: 90%;
-  margin-bottom: -100px;
-}
-
-.page-wrapper:after {
-  content: "";
-  display: block;
-}
-
 .navbar {
   margin-bottom: 5px;
-  border-bottom: 4px solid #5cb85c;
 }
 
-.hr{
-  height: 50px;
+.fl-item {
+  margin-bottom: 20px;
+}
+
+.fl-item-disc {
+  margin-left: 20px;
+  color: dimgray;
 }
 
 .training-card {
@@ -64,7 +21,7 @@ body {
   padding: 0 4vw;
 }
 
-.footer {
-  height: 100px;
-  background-color: #222222;
+.fl-logo {
+  max-width: 100%;
+  max-height: 100%;
 }
