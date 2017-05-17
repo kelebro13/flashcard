@@ -45,7 +45,7 @@ const initState = [
 const flashcards = (state = initState, action: any) => {
     switch (action.type){
         case CREATE_FLASHCARD:
-            break;
+            return state.concat(action.payload); //Array.prototype.concat - возвращает НОВЫЙ массив - это важно для реализации reducer-а
         case UPDATE_FLASHCARD:
             break;
         case DELETE_FLASHCARD:
