@@ -3,9 +3,11 @@ import {Form} from 'semantic-ui-react';
 import {bindActionCreators} from 'redux';
 const {connect} = require('react-redux');
 const {isNaN} = require('lodash');
-const {hashHistory} = require('react-router');
+
+// const {hashHistory} = require('react-router');
 
 import {flashcardAction} from '../actions/FlashcardsAction';
+import CardsView from "./card/CardsView";
 
 const defaultFlashcard = {
     title: null,
@@ -29,7 +31,7 @@ class FlashcardEditPage extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
-            flashcard: props.flashcard || {...defaultFlashcard}
+            flashcard: props.flashcard || {...defaultFlashcard},
         }
     }
 
@@ -46,14 +48,15 @@ class FlashcardEditPage extends React.Component<any, any> {
      * Сначало он вызывает экшен создания новой колоды, после редиректит
      * на страницу со списком всех колод (новая колода должна появится)
      */
-    handleClick = (e: any) => {
+    handleMainSubmit = (e: any) => {
         e.preventDefault();
-        const {createFlashcard} = this.props.action;
+        const {createFlashcard, updateFlashcard} = this.props.action;
         const {flashcard} = this.state;
-        createFlashcard(flashcard);
+        !isNaN(parseInt(flashcard.id)) ? updateFlashcard(flashcard) : createFlashcard(flashcard);
         //стандартная реализация редиректа через react-router
-        hashHistory.push('/');
+        // hashHistory.push('/');
     };
+
 
     render() {
         const {flashcard} = this.state;
@@ -67,7 +70,7 @@ class FlashcardEditPage extends React.Component<any, any> {
                 </div>
                 <div className="row">
                     <div className="col-xs-12 col-sm-5">
-                        <Form size="big" onSubmit={this.handleClick}>
+                        <Form size="big" onSubmit={this.handleMainSubmit}>
                             <Form.Input name='title' label='Название' value={flashcard.title}
                                         placeholder='Название'
                             onChange={this.handleChange}/>
@@ -81,7 +84,11 @@ class FlashcardEditPage extends React.Component<any, any> {
                                         label='Сохранить'/>
                         </Form>
                     </div>
+                    <div className="col-xs-12">
+                        <hr/>
+                    </div>
                 </div>
+                <CardsView cards={flashcard.cards}/>
             </div>
         );
     }
@@ -97,7 +104,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
             })
         }
     }
-    return flashcard;
+    return {flashcard};
 }
 
 const mapDispatchToProps = (dispatch: any) => {
